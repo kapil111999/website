@@ -212,10 +212,19 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
   kubectl uncordon <node-to-uncordon>
   ```
 
+
 ## Upgrade worker nodes
 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.
+
+### Remove taint from controlplane
+
+Before draining the worker nodes, remove the taint in the control plane node using the command :
+
+```shell
+kubectl taint node controlplane node-role.kubernetes.io/control-plane:NoSchedule-
+```
 
 ### Upgrade kubeadm
 
